@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /api/
+Disallow: /_cc_admin/
+Disallow: /favicon.ico/

@@ -1,0 +1,11 @@
+node_modules
+README.md
+.dockerignore
+Test data
+data
+data.*
+uploads
+uploads.*
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,36 @@
+services:
+  init-perms:
+    image: alpine
+    command: chown -R 1000:1000 /app/data /app/uploads
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+
+  sveltekit:
+    image: comixcleric
+    container_name: comixcleric_app
+    restart: unless-stopped
+    depends_on:
+      init-perms:
+        condition: service_completed_successfully
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3366:3366
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    environment:
+      ORIGIN: http://localhost:3366
+      NODE_ENV: production
+      PORT: 3366
+      COMIX_CLERIC_SECRET: ${COMIX_CLERIC_SECRET}
+      DB_ADAPTER: ${DB_ADAPTER}
+      DB_PATH: ${DB_PATH}
+      MONGODB_URI: ${MONGODB_URI}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      STORAGE_ADAPTER: ${STORAGE_ADAPTER}
+      EMAIL_ADAPTER: ${EMAIL_ADAPTER}
+      EMAIL_API_KEY: ${EMAIL_API_KEY}
+      EMAIL_SENDER: ${EMAIL_SENDER}

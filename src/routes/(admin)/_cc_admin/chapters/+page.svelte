@@ -1,0 +1,191 @@
+<script>
+
+  // Svelte utility imports
+  import { page } from "$app/stores";
+
+  // Utility imports
+  import { screen } from "$lib/utils/breakpoints.js";
+
+  // Component imports
+  import Table from "$lib/components/Admin/Table.svelte";
+  
+// Skeleton UI component imports
+  import { Modal } from '@skeletonlabs/skeleton-svelte';
+  import Pagination from "$lib/components/Pagination/Pagination.svelte";
+  import { createPageState } from "$lib/utils/page/pageState.svelte.js";
+
+  // Export props
+  let { data } = $props();
+
+  // Reassign server data
+  let chapters = $derived(data.chapters);
+  let volumes = $derived(data.volumes);
+  let chapterCount = $derived(data.chapterCount);
+  let chapterCountTotal = $derived(data.chapterCountTotal);
+
+  // Pagination paramters
+  let searchParams = createPageState($page.url,
+    {
+      sort: '-date_published',
+      volume: '*',
+      status: '*',
+      page: 1,
+      limit: data?.settings?.page_limit ?? 25,
+    }
+  );
+
+  // Sorting
+  let sortDir = $derived(searchParams.state.sort.startsWith('-') ? '-' : '');
+  let sortField = $derived(searchParams.state.sort.replace(/^-/, ''));
+
+  function setSort(field, dir) {
+    searchParams.state.sort = `${dir}${field}`;
+  }
+
+  // Filtering
+  let openFilters = $state(false);
+
+  // Create pagination boundary
+  let maxPage = $derived(Math.ceil(chapterCount / searchParams.state.limit));
+
+  // Effect to ensure currentPage stays within bounds
+  $effect(() => {
+    if (maxPage > 0 && searchParams.state.page > maxPage) {
+      searchParams.state.page = maxPage;
+    }
+  });
+
+  // Reset all filters
+  function clearFilters() {
+    searchParams.state.status = '*'
+    searchParams.state.volume = '*'
+  }
+
+</script>
+
+<!-- Page container -->
+<section class="w-full max-w-5xl mx-auto h-fit space-y-4">
+  <!-- Page header -->
+  <div class="flex gap-4">
+    <!-- Page heading and item count -->
+    <h3 class="h3 leading-none! w-full flex items-center gap-2">Chapters <span class="font-medium text-surface-700-300 text-base mt-1">• Total: {chapterCount}</span></h3>
+    <!-- Create new chapter button -->
+    <a href="/_cc_admin/chapters/create" class="btn px-3 py-2 preset-filled-primary-500 text-surface-950! leading-none flex gap-2 items-center whitespace-nowrap"><i class="ph-bold ph-plus"></i>Add New Chapter</a>
+  </div>
+  <!-- Sorting and filter options -->
+  <div class="bg-surface-50-950  px-4 pt-2 pb-4 min-h-16 space-y-2">
+    <!-- Sorting menu -->
+    <div class="text-base md:text-sm grid grid-cols-[max-content_auto] gap-2 items-end">
+      <div class="w-full">
+        <p class="">Sort:</p>
+        <div class="input-group w-auto grid grid-cols-[1fr_min-content_min-content]">
+          <select class="ig-select w-full md:w-fit rounded-l-md" value={sortField} onchange={(e) => setSort(e.currentTarget.value, sortDir)}>
+            <option value="date_published" selected>Date Published</option>
+            <option value="name">Title</option>
+            <option value="date_created">Date Created</option>
+            <option value="date_updated">Date Updated</option>
+          </select>
+          <button class="ig-btn aspect-square text-xs p-1 md:w-auto grid place-content-center {sortDir === '' ? 'bg-primary-500 text-surface-950' : ''}" onclick={() => setSort(sortField, '')}><i class="ph-bold ph-plus"></i></button>
+          <button class="ig-btn aspect-square text-xs p-1 md:w-auto grid place-content-center {sortDir === '-' ? 'bg-primary-500 text-surface-950' : ''}" onclick={() => setSort(sortField, '-')}><i class="ph-bold ph-minus"></i></button>
+        </div>
+      </div>
+      <!-- Filter menu -->
+      {#if screen.md.current}
+      <!-- Show if not mobile -->
+      <div class="w-full">
+        <p class="">Filter:</p>
+        <div class="flex gap-2">
+          <select class="select h-8 text-sm py-1 max-w-32" bind:value={searchParams.state.volume}>
+            <option value="*" selected>Volume</option>
+            {#each volumes as item}
+            <option value="{item?.slug}">{item?.name}</option>
+            {/each}
+          </select>
+          <select class="select h-8 text-sm py-1 max-w-32" bind:value={searchParams.state.status}>
+            <option value="*" selected>Status</option>
+            <option value="draft">Draft</option>
+            <option value="scheduled">Scheduled</option>
+            <option value="published">Published</option>
+            <option value="archived">Archived</option>
+          </select>
+          <button aria-label="Reset filters" class="btn btn-sm size-8 grid place-content-center preset-outlined-surface-200-800 " onclick={()=>{clearFilters()}}><i class="ph-bold ph-arrows-clockwise"></i></button>
+        </div>
+      </div>
+      {:else}
+      <!-- Show if mobile -->
+      <div class="grid grid-cols-[auto_min-content] gap-2">
+        <!-- Filter modal -->
+        <Modal
+          {openFilters}
+          onOpenChange={(e) => (openFilters = e.open)}
+          triggerClasses="btn w-full preset-filled-surface-500 "
+          contentClasses="max-h-[calc(100dvh-2rem)] w-full overflow-y-auto shadow-xl shadow-surface-950/10 w-[calc(100vw-2rem)] md:max-w-sm bg-surface-50-950 p-6 "
+        >
+          {#snippet trigger()}
+            Filters
+          {/snippet}
+          {#snippet content()}
+            <div class="w-full space-y-2">
+              <div class="grid grid-cols-[auto_min-content]">
+                <h4 class="h4">Filters</h4>
+                <button aria-label="Close filters" class="btn btn-sm size-10 aspect-square grid place-content-center preset-filled-error-500 " onclick={()=>{closeFilters()}}><i class="ph-bold ph-x"></i></button>
+              </div>
+              <div class="flex flex-col gap-2">
+                <select class="select h-8 text-sm py-1 max-w-32" bind:value={searchParams.state.volume}>
+                  <option value="*" selected>Volume</option>
+                  {#each volumes as item}
+                  <option value="{item?.slug}">{item?.name}</option>
+                  {/each}
+                </select>
+                <select class="select h-8 text-sm py-1 max-w-32" bind:value={searchParams.state.status}>
+                  <option value="*" selected>Status</option>
+                  <option value="draft">Draft</option>
+                  <option value="scheduled">Scheduled</option>
+                  <option value="published">Published</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </div>
+            </div>
+          {/snippet}
+        </Modal>
+        <!-- Reset filters button -->
+        <button aria-label="Reset filters" class="btn grid place-content-center preset-outlined-surface-200-800 " onclick={()=>{clearFilters()}}><i class="ph-bold ph-arrows-clockwise"></i></button>
+      </div>
+      {/if}
+    </div>
+    <!-- Item table -->
+    <Table data={data} dataType="chapters" canView canEdit canShare canDelete deleteAction="/api/actions/chapters?/delete" />
+    <!-- If chapters exist -->
+    {#if chapters.length > 0}
+    <!-- Pagination container -->
+    <div class="sticky -ml-2 bottom-0 grid grid-cols-[auto_min-content] gap-2 items-center fg-color">
+      <Pagination
+        data={chapters}
+        count={chapterCount}
+        onPageChange={(e) => searchParams.state.page = e.page}
+        page={searchParams.state.page}
+        bind:pageSize={searchParams.state.limit}
+      >
+        {#snippet labelEllipsis()}<i class="ph-bold ph-dots-three"></i>{/snippet}
+        {#snippet labelNext()}<i class="ph-bold ph-arrow-right"></i>{/snippet}
+        {#snippet labelPrevious()}<i class="ph-bold ph-arrow-left"></i>{/snippet}
+        {#snippet labelFirst()}<i class="ph-bold ph-caret-line-left"></i>{/snippet}
+        {#snippet labelLast()}<i class="ph-bold ph-caret-line-right"></i>{/snippet}
+      </Pagination>
+    </div>
+    {:else if chapterCountTotal > 0}
+    <!-- If chapters exist, but filters didn't return anything -->
+    <div class="w-fit mx-auto flex flex-col items-center">
+      <p class="text-xl md:text-2xl font-semibold">No chapters found.</p>
+      <p class="text-sm opacity-80">(Try resetting your filters)</p>
+    </div>
+    {:else}
+    <!-- If no chapters exist -->
+    <div class="w-fit mx-auto space-y-2 flex flex-col items-center">
+      <p class="text-xl md:text-2xl font-semibold">No chapters found...</p>
+      <!-- Create new chapter button -->
+      <a href="/_cc_admin/chapters/create" class="btn w-fit px-3 py-2 preset-filled-primary-500 text-surface-950! leading-none flex gap-2 items-center whitespace-nowrap"><i class="ph-bold ph-plus"></i>Add New Chapter</a>
+    </div>
+    {/if}
+  </div>
+</section>
