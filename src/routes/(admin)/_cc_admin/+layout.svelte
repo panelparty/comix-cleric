@@ -7,7 +7,6 @@
 	import { appVer } from '$lib/utils/utils.js';
 
 	// Components
-  import DemoInfo from '$lib/components/Demo/DemoInfo.svelte';
   import ProfileButton from '$lib/components/User/ProfileButton.svelte';
   import Logout from '$lib/components/Auth/Logout.svelte';
   import Login from '$lib/components/Auth/Login.svelte';
@@ -118,9 +117,7 @@
 		<main class="relative grid min-h-0 w-full overflow-hidden md:pb-4 md:pr-4 {menuState ? '' : 'md:pl-4 2xl:pl-8'} 2xl:pr-8" id="main-content">
 		  <!-- Scroll container -->
 			<!-- TODO: Make sure that scroll-to-top on navigation is active for this container -->
-			<div class="@container-size grid min-h-0 grid-cols-1 gap-4 w-full overflow-y-auto bg-surface-50-950 md:rounded-xl p-2 md:p-4 xl:p-8">
-			  <!-- If the demo is active, this info banner will display -->
-				<!-- <DemoBanner {data} /> -->
+			<div class="@container-size grid min-h-0 grid-cols-1 gap-4 w-full overflow-y-auto bg-surface-50-950 md:rounded-xl p-2 md:p-4 xl:p-8">>
 				<!-- Render what we're given by the page -->
 			  {@render children()}
 			</div>

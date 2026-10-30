@@ -930,6 +930,7 @@ export const collectionSchemas: Record<string, CollectionSchema> = {
       reader_height: { type: "string" },
       reader_width: { type: "string" },
       width: { type: "string" },
+      main_section: { type: "string" },
       content_rating: { type: "string", reference: "content_rating.slug" },
       warning_popup: { type: "boolean" },
       warning_title: { type: "string" },
