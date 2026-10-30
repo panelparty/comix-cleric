@@ -38,6 +38,9 @@
   let app_width = $derived(data?.globals?.width ?? '1280px');
   let logo_height = $derived(data?.globals?.logo_height ?? '3rem');
   let header_layout = $derived(data?.globals?.header_layout ?? headerLayouts[0]);
+  let main_section = $derived(data?.globals?.main_section ?? 'hero');
+  let hero_title = $derived(data?.globals?.hero_title ?? 'Check out the latest update!');
+  let hero_subtitle = $derived(data?.globals?.hero_subtitle ?? 'What new adventure awaits you?');
   let reader_height = $derived(data?.globals?.reader_height ?? "350px");
   let reader_width = $derived(data?.globals?.reader_width);
   let format_strip = $derived(data?.globals?.format_strip);
@@ -129,6 +132,22 @@
     invalidateAll();
   };
 
+	// Main section options
+	const mainSectionOptions = [
+		{
+			label: "Hero (default)",
+			value: "hero"
+		},
+		{
+			label: "First Comic Update",
+			value: "first"
+		},
+		{
+			label: "Latest Comic Update",
+			value: "latest"
+		},
+	];
+
 </script>
 
 <KeyboardControls
@@ -205,7 +224,7 @@
 		</Input>
 
 		<!-- Site subtitle input -->
-		<Input type="text" name="app_subtitle" label="App Subtitle" inputClasses="w-full max-w-prose" bind:value={app_subtitle}>
+		<Input type="text" name="app_subtitle" label="App Subtitle" inputClasses="w-full sm:max-w-[50%]" bind:value={app_subtitle}>
 			{#snippet tooltip()}
 				<p class="">The (optional) subtitle of your site, brand, or comic series.</p>
 			{/snippet}
@@ -237,6 +256,7 @@
 			type="select"
 			name="content_rating"
 			label="Global Media Rating"
+			inputClasses="w-full sm:max-w-[50%]"
 			options={content_ratings}
 			optionValues="slug"
 			allowNull={false}
@@ -262,7 +282,7 @@
 		</Input>
 
 		<!-- Warning message input -->
-		<Input type="text" name="warning_title" label="Warning Title" class={warning_popup ? '' : 'hidden'} inputClasses="w-full" bind:value={warning_title}>
+		<Input type="text" name="warning_title" label="Warning Title" class={warning_popup ? '' : 'hidden'} inputClasses="w-full sm:max-w-[50%]" bind:value={warning_title}>
 			{#snippet tooltip()}
 				<p class="">A custom title for your warning pop-up.</p>
 			{/snippet}
@@ -292,6 +312,7 @@
 			type="select"
 			name="app_layout"
 			label="App Layout"
+			inputClasses="w-full sm:max-w-[50%]"
 			bind:value={app_layout}
 			allowNull={false}
 			disabled
@@ -334,6 +355,7 @@
 			type="select"
 			name="header_layout"
 			label="Header Layout"
+			inputClasses="w-full sm:max-w-[50%]"
 			bind:value={header_layout}
 			allowNull={false}
 			options={headerLayouts}
@@ -343,33 +365,39 @@
 				<p class="italic text-surface-700-300">(Does not affect the admin panel)</p>
 			{/snippet}
 		</Input>
-		
-		<!-- Homepage route -->
-		<!-- <Input
+
+		<!-- Header layout input -->
+		<Input
 			type="select"
-			name="homepage"
-			label="Homepage"
-			bind:value={header_layout}
+			name="main_section"
+			label="Homepage Main Section"
+			inputClasses="w-full sm:max-w-[50%]"
+			bind:value={main_section}
 			allowNull={false}
-			options={["default", "first", "last", "random", "number"]}
+			options={mainSectionOptions}
 		>
 			{#snippet tooltip()}
-				<p class="">Controls the layout flow of your site header, excluding on mobile.</p>
-				<p class="italic text-surface-700-300">(Does not affect the admin panel)</p>
+				<p class="">Allows you to choose either a hero section, or your first or most recent comic update to display on the homepage.</p>
 			{/snippet}
-		</Input> -->
+		</Input>
+
+		<!-- Hero title input -->
+		<Input type="text" name="hero_title" label="Hero Title" class="{main_section != "hero" ? "hidden" : ""}" inputClasses="w-full sm:max-w-[50%]" bind:value={hero_title}>
+			{#snippet tooltip()}
+				<p class="">The title of your homepage hero section.</p>
+			{/snippet}
+		</Input>
+
+		<!-- Hero subtitle input -->
+		<Input type="text" name="hero_subtitle" label="Hero Subtitle" class="{main_section != "hero" ? "hidden" : ""}" inputClasses="w-full sm:max-w-[50%]" bind:value={hero_subtitle}>
+			{#snippet tooltip()}
+				<p class="">The subtitle of your homepage hero section.</p>
+			{/snippet}
+		</Input>
 	</FormSection>
 
 	<!-- Reader Formatting -->
 	<FormSection label="Reader Layout">
-		<!-- Enable strip formatting -->
-		<!-- <Input type="checkbox" name="format_infinite" label="Infinite Scroll" bind:value={format_infinite}>
-			{#snippet tooltip()}
-				<p class="leading-tight font-bold">Changes the comic reader to flow endlessly!</p>
-				<p class="leading-tight font-bold text-warning-700-300">Warning, this will disable certain features.</p>
-			{/snippet}
-		</Input> -->
-
 		<!-- Maximum reader height (prevents large image overflow) -->
 		<Input
 			type="text"

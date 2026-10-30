@@ -21,6 +21,9 @@ export const actions = {
     const layout = data.get("app_layout");
     const width = data.get("app_width");
     const header_layout = data.get("header_layout");
+    const main_section = data.get("main_section");
+    const hero_title = data.get("hero_title");
+    const hero_subtitle = data.get("hero_subtitle");
     const reader_height = data.get("reader_height");
     const reader_width = data.get("reader_width");
     const format_strip = data.get("format_strip");
@@ -60,6 +63,9 @@ export const actions = {
         width: checkNull(width, "1280px"),
         logo_height: checkNull(logo_height, "3rem"),
         header_layout: checkNull(header_layout, "inline-evenly"),
+        main_section: checkNull(main_section, "hero"),
+        hero_title: checkNull(hero_title, ""),
+        hero_subtitle: checkNull(hero_subtitle, ""),
         format_strip: setBoolean(format_strip),
         format_infinite: setBoolean(format_infinite),
         reader_height: checkNull(reader_height, "350px"),

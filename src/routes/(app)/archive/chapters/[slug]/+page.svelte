@@ -1,11 +1,6 @@
 ﻿<script>
-  // Svelte Utilities
-  import { page } from '$app/state';
-
   // Utilities
   import { isNew } from '$lib/utils/date.js';
-  import { consoleLog } from '$lib/utils/debug.js';
-  import { createPageState } from '$lib/utils/page/pageState.svelte';
 
   // Component imports
   import BackButton from '$lib/components/Navigation/BackButton.svelte';
@@ -16,6 +11,7 @@
   import NotFound from '$lib/components/Placeholders/NotFound.svelte';
   import DisplayDate from '$lib/components/Display/DisplayDate.svelte';
   import EditLink from '$lib/components/Admin/EditLink.svelte';
+    import { consoleLog } from '$lib/utils/debug.js';
   
   // Export props
   let { data } = $props();
@@ -24,29 +20,6 @@
   let chapter = $derived(data?.chapter);
   let updates = $derived(data?.updates);
   let updateCount = $derived(data?.updateCount);
-
-  // Pagination
-	let searchParams = createPageState(page.url,
-    {
-      page: 1,
-      limit: data?.settings?.page_limit ?? 25,
-    }
-  );
-
-  let sortDir = $derived(searchParams.state.sort.startsWith('-') ? '-' : '');
-  let sortField = $derived(searchParams.state.sort.replace(/^-/, ''));
-
-  // Derive the maximum page number to validate currentPage
-  let maxPage = $derived.by(()=>{
-    return Math.ceil(updateCount / searchParams.state.limit);
-  });
-  
-  // Effect to ensure currentPage stays within bounds
-  $effect(() => {
-    if (maxPage > 0 && searchParams.state.page > maxPage) {
-      searchParams.state.page = maxPage;
-    }
-  });
 </script>
 
 <!-- Page container -->

@@ -16,10 +16,10 @@
   <!-- Header container -->
   <div class="hero-title-container">
     <!-- Heading/title -->
-    <h1 class="hero-title">Check out the latest update!</h1>
+    <h1 class="hero-title">{data?.settings?.hero_title}</h1>
     
     <!-- Subtitle -->
-    <p class="hero-subtitle">What new adventure awaits you?</p>
+    <p class="hero-subtitle">{data?.settings?.hero_subtitle}</p>
   </div>
 
   <!-- Link container -->
@@ -32,7 +32,8 @@
   {:else}
     <!-- If no links were found, show a link to the latest update -->
     <!-- TODO: Make this fallback customizable. -->
-    <a href="/api/latest" class="button hero-button">Read Now!</a>
+    <a href="/api/latest" class="button hero-button" data-preset="primary">First Update</a>
+    <a href="/api/latest" class="button hero-button" data-preset="secondary">Latest Update</a>
   {/if}
   </div>
 </Section>
@@ -41,7 +42,7 @@
 <style>
   :global(.hero-container) {
     position: relative;
-    background: var(--color-secondary-300-700);
+    background: var(--color-primary-300-700);
     width: 100%;
     aspect-ratio: 4/5;
     padding: 0;
@@ -107,15 +108,24 @@
     width: 100%;
     padding: calc(var(--spacing) * 3) calc(var(--spacing) * 4);
     margin: 0 auto;
-    background-color: var(--color-primary-500);
     font-size: var(--text-lg);
-    color: var(--color-primary-contrast-500);
     border-width: var(--default-border-width);
-    border-color: var(--color-primary-950);
-
+    
     @media (width >= 48rem) {
       width: fit-content;
       margin: 0;
+    }
+    
+    &[data-preset="primary"] {
+      color: var(--color-primary-contrast-500);
+      background-color: var(--color-primary-500);
+      border-color: var(--color-primary-950);
+    }
+    
+    &[data-preset="secondary"] {
+      color: var(--color-secondary-contrast-500);
+      background-color: var(--color-secondary-500);
+      border-color: var(--color-secondary-950);
     }
   }
 </style>

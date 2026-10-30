@@ -123,7 +123,6 @@ export const handle = sequence(
 
         // Make global settings available to layout/page server locals object.
         event.locals.settings = settings?.[0] ?? {};
-        event.locals.settings.main_section = "last";
       } catch (e) {
         consoleError("Error in hooks:", e);
         event.locals.settings = {};

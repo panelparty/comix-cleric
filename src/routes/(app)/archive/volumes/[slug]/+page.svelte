@@ -1,10 +1,8 @@
 ﻿<script>
   // Svelte Utilities
-  import { page } from '$app/state';
+  import { page } from '$app/stores';
 
   // Utilities
-  import { isNew } from '$lib/utils/date.js';
-  import { consoleLog } from '$lib/utils/debug.js';
   import { createPageState } from '$lib/utils/page/pageState.svelte';
 
   // Componenta
@@ -27,7 +25,7 @@
   let chapterCount = $derived(data?.chapterCount);
 
   // Pagination
-	let searchParams = createPageState(page.url,
+	let searchParams = createPageState($page.url,
     {
       page: 1,
       limit: data?.settings?.page_limit ?? 25,
@@ -36,6 +34,11 @@
 
   let sortDir = $derived(searchParams.state.sort.startsWith('-') ? '-' : '');
   let sortField = $derived(searchParams.state.sort.replace(/^-/, ''));
+  let filterUpdates = $state(false);
+
+  $effect(() => {
+    searchParams.state.type = filterUpdates && searchParams.state.tab === 'updates' ? 'main-story' : '*';
+  });
 
   // Derive the maximum page number to validate currentPage
   let maxPage = $derived.by(()=>{
@@ -48,6 +51,9 @@
       searchParams.state.page = maxPage;
     }
   });
+
+  // Toggles
+  let showMore = $state(false);
 </script>
 
 <!-- Page container -->

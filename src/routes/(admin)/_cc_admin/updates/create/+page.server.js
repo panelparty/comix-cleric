@@ -40,6 +40,9 @@ export const load = async ({ locals }) => {
 
     prevUpdate = resPrevUpdate[0];
 
+    console.log(resPrevUpdate)
+
+
     // Get all chapters
     // TODO: Limit to active series
     const resChapters = await locals.comixCleric.db.find("chapters", {
