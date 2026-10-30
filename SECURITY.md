@@ -9,7 +9,7 @@ If you want to *responsibly* report a security issue you'll have to reach out as
 Be aware, as we are a small team, we will not tolerate abuse against us or our projects.
 
 This means:
-- Keep your tone light and informative, not arrogant and over-confident.
+- Keep your tone light and informative, not arrogant or over-confident.
 - No threatening deadlines, 60-90 days is a more than reasonable fix timeline.
 - We <u>will not</u> access your security platform to read a report
 - No exaggerated serverity, we will determine the scope of the issue
@@ -39,3 +39,8 @@ There may be cases where community maintainers can submit PRs for older versions
 These package versions are not officially supported, and there is no guarantee that your favorite version will recieve a patch.
 
 If a patch is applied to an older version and a PR is accepted, an official Docker image will be built to support it.
+
+---
+
+> [!NOTE]
+> Parts of this document were referenced from the PocketBase security policy.
