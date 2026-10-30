@@ -12,7 +12,7 @@
   let { data } = $props();
 
   // Destructure data
-  let mainSection = data?.main_section;
+  let mainSection = $derived(data?.main_section);
 
 </script>
 
@@ -28,7 +28,7 @@
   <Hero {data} />
 
 <!-- Reader component -->
-{:else}
+{:else if mainSection?.update}
   <Reader
     data={mainSection?.update}
     media={mainSection?.update?.featured_media}

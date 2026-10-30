@@ -12,7 +12,7 @@ export const load = async ({ parent, locals }) => {
   let resVolumeCount = 0;
   let resBlogs = [];
   let resBlogCount = 0;
-  let mainSection = {};
+  let mainSection = ()=>{};
 
   const seriesId = locals?.series?.id;
 
