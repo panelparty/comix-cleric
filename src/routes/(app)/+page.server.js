@@ -1,6 +1,7 @@
 // Utilities
 import { checkStatus, sanitizeUserRelations } from "$lib/utils/api/auth.js";
 import { consoleError } from "$lib/utils/debug.js";
+import { error } from "@sveltejs/kit";
 
 // SvelteKit load function
 export const load = async ({ parent, locals }) => {
