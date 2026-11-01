@@ -3,7 +3,7 @@
 > [!CAUTION]
 > Contributions are not yet being accepted. Please watch this space for updates.
 
-## Licensing Contibutions
+## Licensing Contributions
 
 It is to be understood that by contributing to this project, you <u>must</u> own the authorship rights to license any part of your contributed code under Apache 2.0. If you do not want to or cannot license your code under Apache 2.0, **do not submit contributions.**
 
