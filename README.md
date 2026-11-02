@@ -173,6 +173,9 @@ You can preview the production build with `pnpm preview`.
 
 Guidelines for contributions can be found in CONTRIBUTING.md.
 
+> [!WARNING]
+> Contributions are not yet opened as we prepare ourselves and the codebase to accept them.
+
 ---
 
 ## License:
