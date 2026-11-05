@@ -123,7 +123,7 @@ cc-app/
 Your new Comix Cleric app should now be running and have generated the required folders and files for operation.
 
 > [!TIP]
-> SvelteKit has many [adapters](https://svelte.dev/docs/kit/adapters) you might want to use for your build.
+> If you are working with `source.zip`: SvelteKit has many [adapters](https://svelte.dev/docs/kit/adapters) you might want to use for your build.
 
 ### Next Steps
 
