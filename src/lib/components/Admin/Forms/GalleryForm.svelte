@@ -319,6 +319,7 @@
       deleteUrl="/_cc_admin/gallery"
       {id}
       title={name}
+      {name}
     />
   {/snippet}
 

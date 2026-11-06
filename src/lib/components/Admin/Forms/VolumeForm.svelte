@@ -209,6 +209,7 @@
       deleteUrl="/_cc_admin/volumes"
       {id}
       title={name}
+      {name}
     />
   {/snippet}
 </Form>

@@ -19,7 +19,7 @@
 {#if data?.isAdmin}
 <Alert preset="surface" class="page-status-alert">
   <!-- Title -->
-  <h6 class="page-status-heading">You can disable this page in the <a href="{adminRoute}/layout/edit/{currentPage?.id}" class="anchor">page settings</a>.</h6>
+  <p class="page-status-heading">You can disable this page in the <a href="{adminRoute}/settings/pages/edit/{currentPage?.id}" class="anchor">page settings</a> by clicking "Unpublish."</p>
   
   <!-- Message -->
   <p class="label-dim page-status-message">(Only admin can see this message)</p>
@@ -31,5 +31,12 @@
     max-width: var(--container-xl);
     padding: calc(var(--spacing) * 2);
     align-items: center;
+    text-align: center;
+  }
+  
+  .page-status-heading {
+    font-weight: 700;
+    line-height: var(--leading-tight);
+    text-wrap: pretty;
   }
 </style>

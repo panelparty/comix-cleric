@@ -136,6 +136,7 @@
         {maxHeight}
         data-format={format_strip ? 'strip' : 'default'}
         bind:isFullscreen
+        style="--reader-width: {readerWidth}; --max-height: {maxHeight}; --item-count: {mediaItems?.length ?? 1};"
       >
         <!-- Controls -->
         {#snippet controls()}
@@ -236,8 +237,13 @@
     .reader-container {
       position: relative;
       height: 100%;
+      width: 100%;
       max-width: min(100%, var(--reader-width));
       margin: 0 auto;
+    }
+    
+    .reader-fullscreen-container {
+      max-width: min(100%, var(--reader-width));
     }
 
     .reader-media-container {

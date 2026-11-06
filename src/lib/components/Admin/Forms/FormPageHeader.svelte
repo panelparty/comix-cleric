@@ -3,7 +3,6 @@
 	import BackButton from "$lib/components/Navigation/BackButton.svelte";
 	import { screen } from "$lib/utils/breakpoints";
 
-
 	// Props
 	let {
 		data,
@@ -16,9 +15,7 @@
 		createURL,
 		createLabel = "Add New"
 	} = $props();
-
 </script>
-
 
 <!-- Main wrapper -->
 <div class="w-full flex items-start justify-between gap-4 bg-inherit p-2 md:py-0">
@@ -70,5 +67,4 @@
 
 		{@render titleButton?.()}
 	</div>
-
 </div>

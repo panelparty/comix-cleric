@@ -263,6 +263,7 @@
     <FormControls
       {id}
       {title}
+      name={title}
       useStatus
       {status}
       {canSchedule}

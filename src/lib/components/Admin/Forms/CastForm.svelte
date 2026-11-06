@@ -321,6 +321,7 @@
       deleteUrl="/_cc_admin/cast"
       {id}
       title={name}
+      {name}
     />
   {/snippet}
 

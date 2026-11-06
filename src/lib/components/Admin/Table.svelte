@@ -278,6 +278,7 @@
               <DeleteConfirm
                 id={item?.id}
                 title={item?.name}
+                name={item?.name}
                 formAction={deleteAction}
                 class="size-8! flex items-center justify-center"
                 small

@@ -36,26 +36,6 @@
   <a href="/_cc_admin/users/create-staff" class="w-fit mx-auto btn px-3 py-2 bg-primary-500 text-surface-950 leading-none flex gap-2 items-center whitespace-nowrap"><i class="ph-bold ph-plus"></i>Add Staff</a>
 {/if}
 
-<!-- Show if we have existing user accounts -->
-{#if userCount > 0}
-  <!-- Section header -->
-  <div class="flex gap-4 mt-8">
-    <!-- Section heading/title -->
-    <h3 class="h3 leading-none! w-full flex items-center gap-2">Users</h3>
-    <!-- Create user button -->
-    <a href="/_cc_admin/users/create-user" class="btn px-3 py-2 bg-primary-500 text-surface-950! leading-none flex gap-2 items-center whitespace-nowrap"><i class="ph-bold ph-plus"></i>Add User</a>
-  </div>
-  <hr class="hr my-4">
-  <!-- User data table -->
-  <!-- TODO: Replace this with generic flexible table component -->
-  <div class="bg-surface-50-950  px-4 pt-2 pb-4 min-h-16 space-y-2">
-    <Table data={data} dataType="users" canView canEdit canDelete deleteAction="/api/actions/users?/delete" />
-  </div>
-{:else}
-  <NotFound label="No users found" />
-  <a href="/_cc_admin/users/create-user" class="w-fit mx-auto btn px-3 py-2 bg-primary-500 text-surface-950 leading-none flex gap-2 items-center whitespace-nowrap"><i class="ph-bold ph-plus"></i>Add User</a>
-{/if}
-
 <!-- Section header -->
 <div class="flex gap-4 mt-8">
   <!-- Section heading/title -->

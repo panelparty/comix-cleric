@@ -11,8 +11,8 @@
 	import { Modal } from "@skeletonlabs/skeleton-svelte";
   
   // Components
-	import Input from ".../Inputs/Input.svelte";
 	import Form from "$lib/components/Forms/Form.svelte";
+  import Input from "../../Inputs/Input.svelte";
 	
 // Props
   let {
@@ -25,15 +25,17 @@
 	let slug_override = $state();
 
   // Form element reference
-	let formElement = $state();
+	let formElement;
 
   // Modal state
 	let open = $state(false);
 
   // Cancel action
 	function cancel() {
-		formElement.reset();
-		open != open;
+    status = null;
+    new_page = null;
+    slug_override = null;
+		open = !open;
 	}
 
   // Form submission handler
@@ -85,7 +87,7 @@
 			bind:this={formElement}
 		>
       <!-- New page status -->
-      <Input type="select" name="status" label="Status" selected={1} {statusPost} bind:value={status}>
+      <Input type="select" name="status" label="Status" selected={4} options={statusPost} bind:value={status}>
         {#snippet tooltip()}
           <p class="">This option sets the status value of the page when it is created.</p>
         {/snippet}
@@ -99,7 +101,7 @@
       </Input>
 
       <!-- New page slug override -->
-      <Input type="text" name="slug_override" label="Override Slug" bind:value={slug_override}>
+      <Input type="text" name="slug-override" label="Override Slug" bind:value={slug_override}>
         {#snippet tooltip()}
           <p class="">If the slug of the default page will collide with another (slugs must be unique), you can use this field to override the default page slug.</p>
         {/snippet}

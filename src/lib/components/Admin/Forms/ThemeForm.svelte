@@ -1,5 +1,4 @@
 <script>
-
   import { onDestroy } from "svelte";
   import { beforeNavigate, goto, invalidateAll } from "$app/navigation";
   import { toastError, toastSuccess } from "$lib/utils/toast";
@@ -7,35 +6,28 @@
   import { fallback } from "$lib/utils/utils";
   import { capitalizeString } from "$lib/utils/generate/string";
 
-
-
   import Form from "../../Forms/Form.svelte";
 	import Input from "../Inputs/Input.svelte";
 	import FormControls from "../../Forms/FormControls.svelte";
   import KeyboardControls from "$lib/components/Accessibility/KeyboardControls/KeyboardControls.svelte";
   import slugify from "@sindresorhus/slugify";
   
-
   let {
     data,
     create
   } = $props();
-
 
 	let currentTheme = $derived(data?.settings?.theme);
 	let themeName = $derived(data?.currentTheme?.name ?? '');
   let themeSlug = $derived(data?.currentTheme?.slug ?? '');
   let themeCode = $derived(data?.currentTheme?.code ?? '');
 
-  
   let formElement = $state();
-
 
 	let preview = $state(false);
 	let activeTheme = $derived.by(()=>{
 		return preview ? themeSlug : currentTheme;
  	});
-
 
 	let hasChanged = $derived.by(()=>{
     if (create) return false;
@@ -48,7 +40,6 @@
     }
     return false;
   });
-
 
 	// Keeps theme slug in-sync with the current theme name
   // TODO: Remove when changing to multiple custom theme support
@@ -237,6 +228,7 @@
 			canDelete
 			id={data?.currentTheme?.id}
 			title={fallback([themeName, themeSlug])}
+			name={fallback([themeName, themeSlug])}
 			deleteAction="/api/actions/themes?/delete"
 			deleteUrl="/_cc_admin/settings/themes"
 		/>

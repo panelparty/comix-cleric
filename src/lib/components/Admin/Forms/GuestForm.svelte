@@ -172,6 +172,7 @@
       canDelete={!create}
       {id}
       title={username}
+      name={username}
       deleteAction="/api/actions/guests?/delete"
       deleteUrl="/_cc_admin/users"
       handleDiscard={handleCancel}

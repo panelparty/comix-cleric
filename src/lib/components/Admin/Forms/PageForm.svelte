@@ -46,6 +46,7 @@
   let show_mobile = $derived(data?.page?.show_mobile);
   let show_thumb = $derived(data?.page?.show_thumb);
   let show_reader = $derived(data?.page?.show_reader);
+  let show_hero = $derived(data?.page?.show_hero);
   let blurb = $derived(data?.page?.blurb ?? '');
   let desc = $derived(data?.page?.description ?? '');
   let date_published = $derived(data?.page?.date_published ?? undefined);
@@ -278,6 +279,12 @@
         <p class="text-warning-500 font-bold ">We suggest keeping the number of links on the reader navigation low. There is very limited space.</p>
       {/snippet}
     </Input>
+
+    <Input type="checkbox" name="show-hero" label="Show in Hero Section" bind:value={show_hero} class="w-full">
+      {#snippet tooltip()}
+        <p class="">If enabled, shows as a button in the home page hero section.</p>
+      {/snippet}
+    </Input>
   </div>
 
   <!-- Page Short Description + Preview -->
@@ -312,10 +319,12 @@
       useStatus
       {status}
       {canSchedule}
+      canDelete
       deleteAction="/api/actions/pages?/delete"
-      deleteUrl="/_cc_admin/layout"
+      deleteUrl="/_cc_admin/settings/pages"
       handleDiscard={handleCancel}
       {id}
+      {name}
       title={name}
     />
   {/snippet}
