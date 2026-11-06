@@ -23,7 +23,7 @@ Examples of what we expect you to do with this codebase without our express perm
 - Fork and distribute custom builds via direct download, whether on GitHub or your own site.
 - Modify the codebase and contribute your work back to accelerate development efforts.
 
-We just ask that no one turns our work into a competing service without our involvemen. If you want to offer hosting services or one-click solutions utilizing the Comix Cleric package, feel free to reach out and see what we can do for you!
+We just ask that no one turns our work into a competing service without our involvement. If you want to offer hosting services or one-click solutions utilizing the Comix Cleric package, feel free to reach out and see what we can do to help you!
 
 Whether you can see it or not, this project is not just about providing an app you can use for your webcomics, we are trying to pave the way for more ethical, open solutions to problems induced by the large players in the industry. This is not limited to Comix Cleric. We have unannounced plans for other tools and services that serve the same mission: Giving our peers a space where they can feel that their interests are respected. If this project is undercut by a person or company that seeks to minimize our efforts, we all lose. The only way these projects are getting made in a timely manner is if we can give them our full and undivided attention.
 
@@ -123,7 +123,7 @@ cc-app/
 Your new Comix Cleric app should now be running and have generated the required folders and files for operation.
 
 > [!TIP]
-> SvelteKit has many [adapters](https://svelte.dev/docs/kit/adapters) you might want to use for your build.
+> If you are working with `source.zip`: SvelteKit has many [adapters](https://svelte.dev/docs/kit/adapters) you might want to use for your build.
 
 ### Next Steps
 
@@ -172,6 +172,9 @@ You can preview the production build with `pnpm preview`.
 ## Contributing:
 
 Guidelines for contributions can be found in CONTRIBUTING.md.
+
+> [!WARNING]
+> Contributions are not yet opened as we prepare ourselves and the codebase to accept them.
 
 ---
 

@@ -25,7 +25,6 @@
         el.addEventListener("click", (e) => {
           const attr = "data-spoiler-toggled"
           const toggled = el.getAttribute(attr);
-          console.log(toggled)
           if (!toggled) {
             el.setAttribute(attr, "true");
             el.setAttribute("title", hoverMsg("hide"));

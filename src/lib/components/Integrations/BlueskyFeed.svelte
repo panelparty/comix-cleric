@@ -39,7 +39,6 @@
 		})
 		// Transform data
 		.then((result) => {
-			console.log(result.data.feed)
 			return result.data.feed
 		});
 </script>

@@ -9,15 +9,15 @@ If you want to *responsibly* report a security issue you'll have to reach out as
 Be aware, as we are a small team, we will not tolerate abuse against us or our projects.
 
 This means:
-- Keep your tone light and informative, not arrogant or over-confident.
-- No threatening deadlines, 60-90 days is a more than reasonable fix timeline.
+- Keep your tone light and informative, not arrogant / over-confident
+- No threatening deadlines, 60-90 days is a more than reasonable fix timeline
 - We <u>will not</u> access your security platform to read a report
-- No exaggerated serverity, we will determine the scope of the issue
-- We will not accept **any** AI/LLM-generated reports or replies
+- No exaggerated severity, we will determine the scope of the issue's impact
+- We will not accept **any** AI/LLM-generated reports or replies, period
 
 Reports violating the above guidelines will not be reviewed, regardless of their validity.
 
-**In other words, simply *"Heads-up, I may have found a security issue in ____."* is enough to properly begin a review.**
+**In other words, a human contacting us with *"Heads-up, I may have found a security issue in ____. Here are the details I found..."* is enough to properly begin a review.**
 
 We try to respond to security reports within a day, but if you haven't heard from us in over a week, try reaching out again, or check that your messages were actually sent.
 
@@ -28,7 +28,7 @@ In cases where a vulnerability is confirmed:
 - After the patch is applied, we will publish a security advisory and CVE with steps to resolve the issue and *minimal* details regarding the original exploit.
 
 > [!IMPORTANT]
-> You are free to publish your PoC and more details in your own blog, but we ask that you wait at least a week after the release to allow enough time for people to patch their instances before making it more widely-known.
+> You are free to publish your PoC and more details in your own blog, but we ask that you wait at least a week after the new patch release to allow enough time for people to patch their instances before making it more widely-known.
 
 ---
 

@@ -1,6 +1,7 @@
 // Utilities
 import { checkStatus, sanitizeUserRelations } from "$lib/utils/api/auth.js";
 import { consoleError } from "$lib/utils/debug.js";
+import { error } from "@sveltejs/kit";
 
 // SvelteKit load function
 export const load = async ({ parent, locals }) => {
@@ -11,7 +12,7 @@ export const load = async ({ parent, locals }) => {
   let resVolumeCount = 0;
   let resBlogs = [];
   let resBlogCount = 0;
-  let mainSection = {};
+  let mainSection = ()=>{};
 
   const seriesId = locals?.series?.id;
 

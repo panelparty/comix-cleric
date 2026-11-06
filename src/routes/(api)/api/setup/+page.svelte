@@ -10,6 +10,11 @@
   import Form from "$lib/components/Forms/Form.svelte";
   import Input from "$lib/components/Admin/Inputs/Input.svelte";
   import Loader from "$lib/components/Placeholders/Loader.svelte";
+
+  // Props
+  let {
+    data
+  } = $props();
   
   // Form values
   let email = $state(null);
@@ -56,7 +61,7 @@
   <h3 class="h3 text-center">Setup Wizard</h3>
   
   <!-- Form -->
-  {#if data?.settings?.setup_complete}
+  {#if !data?.settings?.setup_complete}
     <Form
       action="?/setup"
       method="POST"
