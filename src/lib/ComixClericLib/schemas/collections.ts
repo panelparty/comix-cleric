@@ -880,6 +880,7 @@ export const collectionSchemas: Record<string, CollectionSchema> = {
       show_mobile: { type: "boolean" },
       show_thumb: { type: "boolean" },
       show_reader: { type: "boolean" },
+      show_hero: { type: "boolean" },
       user_created: { type: "string", reference: "user.id" },
       user_updated: { type: "string", reference: "user.id" },
       date_created: { type: "date" },
