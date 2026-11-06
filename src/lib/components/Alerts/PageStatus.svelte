@@ -19,7 +19,7 @@
 {#if data?.isAdmin}
 <Alert preset="surface" class="page-status-alert">
   <!-- Title -->
-  <p class="page-status-heading">You can disable this page in the <a href="{adminRoute}/settings/pages/edit/{currentPage?.id}" class="anchor">page settings</a> by clicking "Unpublish."</p>
+  <p class="page-status-heading">You can disable this page in the <a href="{adminRoute}/settings/pages/edit/{currentPage?.id}" target="_blank" class="anchor">page settings</a> by clicking "Unpublish."</p>
   
   <!-- Message -->
   <p class="label-dim page-status-message">(Only admin can see this message)</p>
