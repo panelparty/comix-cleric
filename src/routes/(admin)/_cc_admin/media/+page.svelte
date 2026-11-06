@@ -114,7 +114,7 @@
               </p>
             </div>
             <div class="p-2 grid grid-cols-[auto_min-content] items-center gap-2">
-              <p class="-my-1 truncate text-sm font-bold">{file?.title}</p>
+              <p class="-my-1 truncate text-sm font-bold" title={file?.title}>{file?.title}</p>
               <div class="flex items-center gap-2">
                 <CopyButton
                   value={file?.filename_disk}

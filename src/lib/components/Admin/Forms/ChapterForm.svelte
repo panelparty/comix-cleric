@@ -257,6 +257,7 @@
       deleteUrl="/_cc_admin/chapters"
       {id}
       title={fallback([name, slug])}
+      name={fallback([name, slug])}
     />
   {/snippet}
 </Form>

@@ -1,4 +1,6 @@
 <script>
+    import { fallback } from "$lib/utils/utils";
+
   // Components
   import Section from "./Section.svelte";
 
@@ -24,17 +26,11 @@
 
   <!-- Link container -->
   <div class="hero-button-container">
-  {#if data?.settings?.hero_links?.length > 0}
-    {#each data?.settings?.hero_links as link}
-    <a href={link?.url} class="button hero-button">{link?.label}</a>
-    {/each}
-
-  {:else}
-    <!-- If no links were found, show a link to the latest update -->
-    <!-- TODO: Make this fallback customizable. -->
-    <a href="/api/latest" class="button hero-button" data-preset="primary">First Update</a>
-    <a href="/api/latest" class="button hero-button" data-preset="secondary">Latest Update</a>
-  {/if}
+  {#each data?.pages as item}
+    {#if item?.show_hero}
+      <a href={item?.url} aria-label={item?.label} class="button hero-button" data-preset="primary">{fallback([item?.label, item?.name, item?.slug])}</a>
+    {/if}
+  {/each}
   </div>
 </Section>
 {/if}

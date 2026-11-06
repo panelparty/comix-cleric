@@ -12,6 +12,7 @@
   import Login from '$lib/components/Auth/Login.svelte';
   import Navigation from '$lib/components/Admin/Layout/Navigation.svelte';
 	import NoIndex from '$lib/components/SEO/NoIndex.svelte';
+    import slugify from '@sindresorhus/slugify';
 
   // Props
 	let {
@@ -109,7 +110,7 @@
 					</ProfileButton>
 				{/if}
 				<!-- Current app version -->
-				<p class="app-version mx-auto mt-2">App Version: <a href="https://comixcleric.com/docs/changelogs#{appVer}" target="_blank" class="anchor">{appVer}</a></p>
+				<p class="app-version mx-auto mt-2">App Version: <a href="https://comixcleric.com/docs/changelogs#{slugify(appVer)}" target="_blank" class="anchor">{appVer}</a></p>
 			</div>
 		</aside>
 		{/if}

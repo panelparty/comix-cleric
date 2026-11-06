@@ -9,7 +9,7 @@
   } = $props();
 </script>
 
-{#if contributors}
+{#if contributors && contributors?.length > 0}
 <div class="contributors-container gap-container" style="--gap: 2;">
   <h6 class="contributors-heading title">{heading}</h6>
 

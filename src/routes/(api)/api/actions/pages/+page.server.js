@@ -14,6 +14,7 @@ import { find } from "lodash-es";
 import { formAction } from "$lib/utils/api/handler";
 import { serverValidate } from "$lib/utils/validation/schema";
 import { slugSchema } from "$lib/utils/validation/schema";
+import { consoleLog } from "$lib/utils/debug.js";
 
 
 export const actions = {
@@ -27,6 +28,7 @@ export const actions = {
     // Get form data
     const status = data.get("status");
     const action = data.get("action");
+    const order_id = data.get("order_id");
     const name = data.get("name");
     const slug = data.get("slug");
     const url = data.get("url");
@@ -35,14 +37,16 @@ export const actions = {
     const icon = data.get("icon");
     const color = data.get("color");
     const theme = data.get("theme");
-    const showHeader = data.get("show-header");
-    const showFooter = data.get("show-footer");
-    const showMobile = data.get("show-mobile");
-    const showThumb = data.get("show-thumb");
-    const showReader = data.get("show-reader");
+    const body = data.get("body");
+    const show_header = data.get("show-header");
+    const show_footer = data.get("show-footer");
+    const show_mobile = data.get("show-mobile");
+    const show_thumb = data.get("show-thumb");
+    const show_reader = data.get("show-reader");
+    const show_hero = data.get("show-hero");
     const blurb = data.get("blurb");
-    const description = data?.get("desc");
-    const dateReleased = data?.get("date-released");
+    const description = data.get("desc");
+    const dateReleased = data.get("date-released");
 
 
     // Check data that must match a strict schema
@@ -75,16 +79,18 @@ export const actions = {
       label,
       icon,
       // color,
+      body,
       theme,
-      order_id: currentPageCount,
-      show_header: setBoolean(showHeader),
-      show_footer: setBoolean(showFooter),
-      show_mobile: setBoolean(showMobile),
-      show_thumb: setBoolean(showThumb),
-      show_reader: setBoolean(showReader),
+      ...setOrderID,
+      show_header: setBoolean(show_header),
+      show_footer: setBoolean(show_footer),
+      show_mobile: setBoolean(show_mobile),
+      show_thumb: setBoolean(show_thumb),
+      show_reader: setBoolean(show_reader),
+      show_hero: setBoolean(show_hero),
       blurb: sanitized?.blurb,
       description: sanitized?.description,
-      date_published: publishDateFull,
+      date_published: publishSeconds(dateReleased),
       user_created: user?.id,
       user_updated: user?.id,
     });
@@ -104,7 +110,7 @@ export const actions = {
   createDefault: formAction(async ({ data, db, user, locals }) => {
     const status = data.get("status");
     const slug = data.get("slug");
-
+    const slug_override = data.get("slug-override");
 
     // Check data that must match a strict schema
     const invalid = serverValidate(
@@ -112,14 +118,15 @@ export const actions = {
     );
     if (invalid) return invalid;
 
-
     // Get reference to seed data (default pages)
-    const defaultPage = Object.assign({}, find(pages, { slug: slug }));
-
+    const defaultPage = find(pages, { slug: slug });
+    delete defaultPage.id;
+    defaultPage.slug = checkNull(slug_override) ?? defaultPage.slug;
 
     // Get current page count to increment `order_id`
     let currentPageCount = await db.count("pages");
 
+    consoleLog(defaultPage);
 
     // Send page creation request to database
     const res = await db.create("pages", {
@@ -128,7 +135,6 @@ export const actions = {
       order_id: currentPageCount,
       date_published: new Date().toISOString(),
     });
-
 
     return { new_item: res };
   }),
@@ -153,6 +159,7 @@ export const actions = {
     const show_mobile = data.get("show-mobile");
     const show_thumb = data.get("show-thumb");
     const show_reader = data.get("show-reader");
+    const show_hero = data.get("show-hero");
     const blurb = data.get("blurb");
     const description = data.get("desc");
     const dateReleased = data.get("date-released");
@@ -191,6 +198,7 @@ export const actions = {
       show_mobile: setBoolean(show_mobile),
       show_thumb: setBoolean(show_thumb),
       show_reader: setBoolean(show_reader),
+      show_hero: setBoolean(show_hero),
       blurb: sanitized?.blurb,
       description: sanitized?.description,
       date_published: publishSeconds(dateReleased),
@@ -228,11 +236,12 @@ export const actions = {
       const icon = item?.icon;
       const color = item?.color;
       const theme = item?.theme;
-      const showHeader = item?.show_header;
-      const showFooter = item?.show_footer;
-      const showMobile = item?.show_mobile;
-      const showThumb = item?.show_thumb;
-      const showReader = item?.show_reader;
+      const show_header = item?.show_header;
+      const show_footer = item?.show_footer;
+      const show_mobile = item?.show_mobile;
+      const show_thumb = item?.show_thumb;
+      const show_reader = item?.show_reader;
+      const show_hero = item?.show_hero;
       const blurb = item?.blurb;
       const description = item?.description;
       const dateReleased = item?.date_released;
@@ -255,11 +264,12 @@ export const actions = {
         icon,
         // color,
         theme,
-        show_header: setBoolean(showHeader),
-        show_footer: setBoolean(showFooter),
-        show_mobile: setBoolean(showMobile),
-        show_thumb: setBoolean(showThumb),
-        show_reader: setBoolean(showReader),
+        show_header: setBoolean(show_header),
+        show_footer: setBoolean(show_footer),
+        show_mobile: setBoolean(show_mobile),
+        show_thumb: setBoolean(show_thumb),
+        show_reader: setBoolean(show_reader),
+        show_hero: setBoolean(show_hero),
         blurb: sanitized?.blurb,
         description: sanitized?.description,
         date_published: publishSeconds(dateReleased),

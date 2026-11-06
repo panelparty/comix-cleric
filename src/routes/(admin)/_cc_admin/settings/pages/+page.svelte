@@ -11,6 +11,7 @@
   import Form from '$lib/components/Forms/Form.svelte';
   import KeyboardControls from '$lib/components/Accessibility/KeyboardControls/KeyboardControls.svelte';
   import FormPageHeader from '$lib/components/Admin/Forms/FormPageHeader.svelte';
+  import AddDefaultPage from '$lib/components/Admin/Forms/Floating/AddDefaultPage.svelte';
   
   // Props
   let { data } = $props();
@@ -49,12 +50,12 @@
   <FormPageHeader
     title="App Pages"
   >
-    <!-- {#snippet titleButton()}
-      <a href="layout/create" class="btn preset-filled-primary-500 border flex items-center gap-4">
+    {#snippet titleButton()}
+      <!-- <a href="layout/create" class="btn preset-filled-primary-500 border flex items-center gap-4">
         Add new Page
-      </a>
+      </a> -->
       <AddDefaultPage />
-    {/snippet} -->
+    {/snippet}
   </FormPageHeader>
   
   <Form

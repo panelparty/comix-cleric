@@ -54,6 +54,7 @@
     <DeleteConfirm
       small={!screen.md.current}
       {id}
+      {name}
       title="Delete {title}"
       formAction={deleteAction}
       href={deleteUrl}

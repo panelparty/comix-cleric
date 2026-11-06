@@ -285,6 +285,7 @@
       deleteAction="/api/actions/series?/delete"
       {id}
       title={name}
+      {name}
     />
   {/snippet}
 </Form>

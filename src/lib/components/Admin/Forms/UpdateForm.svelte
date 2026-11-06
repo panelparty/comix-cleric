@@ -436,6 +436,7 @@
       handleDiscard={handleCancel}
       {id}
       title={fallback([name, slug])}
+      name={fallback([name, slug])}
     />
   {/snippet}
 </Form>

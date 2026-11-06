@@ -256,6 +256,7 @@
       canDelete={!create && !isCurrentUser}
       {id}
       {title}
+      name={title}
       deleteAction="/api/actions/staff?/delete"
       deleteUrl="/_cc_admin/users"
       handleDiscard={handleCancel}
