@@ -1823,6 +1823,7 @@ export const globals = [
     description: "A new way to host your webcomics!",
     format_strip: false,
     format_infinite: false,
+    reader_width: "100%",
     reader_height: "350px",
     copyright: "$APP_NAME © 2025 - $CURRENT_YEAR\r\nAll rights reserved.",
     source_branding: true,
