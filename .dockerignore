@@ -1,7 +1,6 @@
 node_modules
 README.md
 .dockerignore
-Test data
 data
 data.*
 uploads
@@ -9,3 +8,7 @@ uploads.*
 *.log
 .DS_Store
 Thumbs.db
+.env
+.env.*
+!.env.example
+!.env.test
