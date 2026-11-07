@@ -347,22 +347,24 @@ export class SQLiteAdapter extends BaseDatabaseAdapter {
     }
   }
 
-  convertSort(sort) {
+  convertSort(sort, collection) {
     if (!sort) return "";
 
     if (typeof sort === "string") {
       const desc = sort.startsWith("-");
       const field = desc ? sort.substring(1) : sort;
-      return `"${field}" ${desc ? "DESC" : "ASC"}`;
+      if (!this.isValidSortField(field, collection)) return "";
+      return `"${field.replaceAll('"', '""')}" ${desc ? "DESC" : "ASC"}`;
     }
 
     if (Array.isArray(sort)) {
       const parts = [];
       for (const entry of sort) {
-        if (typeof entry !== "string") continue;
+        if (typeof entry !== "string") return "";
         const desc = entry.startsWith("-");
         const field = desc ? entry.substring(1) : entry;
-        parts.push(`"${field}" ${desc ? "DESC" : "ASC"}`);
+        if (!this.isValidSortField(field, collection)) return "";
+        parts.push(`"${field.replaceAll('"', '""')}" ${desc ? "DESC" : "ASC"}`);
       }
       return parts.length ? parts.join(", ") : "";
     }
@@ -370,7 +372,8 @@ export class SQLiteAdapter extends BaseDatabaseAdapter {
     if (typeof sort === "object") {
       const parts = [];
       for (const [field, dir] of Object.entries(sort)) {
-        parts.push(`"${field}" ${dir === -1 ? "DESC" : "ASC"}`);
+        if (!this.isValidSortField(field, collection)) return "";
+        parts.push(`"${field.replaceAll('"', '""')}" ${dir === -1 ? "DESC" : "ASC"}`);
       }
       return parts.length ? parts.join(", ") : "";
     }
@@ -403,12 +406,12 @@ export class SQLiteAdapter extends BaseDatabaseAdapter {
     this.assertCollectionExists(collection);
 
     const { filter = {}, sort, fields, limit, page, populate } = options;
+    const orderBy = this.convertSort(sort, collection);
     const skip = page && limit ? (page - 1) * limit : undefined;
 
     const mergedFilter = this._withDefaultFilter(collection, filter);
     const { clause, params } = this.convertFilters(mergedFilter, collection);
     const selectCols = this.convertFields(fields);
-    const orderBy = this.convertSort(sort);
 
     let sql = `SELECT ${selectCols} FROM "${collection}"`;
     if (clause) sql += ` WHERE ${clause}`;

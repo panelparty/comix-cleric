@@ -28,6 +28,12 @@ export class BaseDatabaseAdapter {
     }
   }
 
+  isValidSortField(field, collection) {
+    if (typeof collection !== "string" || !Object.hasOwn(this.#schemas, collection)) return false;
+    const fields = this.schemaRegistry.get(collection)?.fields;
+    return typeof field === "string" && !!fields && Object.hasOwn(fields, field);
+  }
+
   // Apply the collection's schema-defined `defaultFilter` as a fallback.
   _withDefaultFilter(collection, userFilter) {
     const def = this.schemaRegistry.get(collection)?.defaultFilter;
