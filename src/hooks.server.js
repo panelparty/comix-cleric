@@ -1,5 +1,5 @@
 // Utilities
-import { redirect } from "@sveltejs/kit";
+import { normalizeUrl, redirect } from "@sveltejs/kit";
 import { isArray } from "lodash-es";
 import { sequence } from "@sveltejs/kit/hooks";
 import { csrf } from "./hooks/csrf";
@@ -145,10 +145,13 @@ export const handle = sequence(
     }
 
     // Now check if user is trying to access admin routes
-    if (
-      event.url.pathname.startsWith("/_cc_admin") &&
-      event.url.pathname !== "/_cc_admin"
-    ) {
+    const routeId = event.route?.id?.replace("/(admin)", "") ?? '';
+    const adminRoute = "/_cc_admin";
+
+    const isAdminRoute = routeId === adminRoute || routeId.startsWith(adminRoute + '/');
+    const isAdminLogin = routeId === adminRoute;
+
+    if (isAdminRoute && !isAdminLogin) {
       consoleLog("Loading hooks.server.js - checking admin access");
       // If the user is not an admin...
       if (!event.locals.isAdmin) {

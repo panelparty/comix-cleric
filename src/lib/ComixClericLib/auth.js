@@ -85,11 +85,6 @@ const comixClericAuthAdapter = (db) =>
               ? `${sortBy.direction === "desc" ? "-" : ""}${sortBy.field}`
               : undefined,
           };
-          if (limit) options.limit = limit;
-          if (sortBy) {
-            options.sort =
-              sortBy.direction === "desc" ? `-${sortBy.field}` : sortBy.field;
-          }
 
           const results = await db.find(model, options);
           return (results || []).map(normalizeDoc);

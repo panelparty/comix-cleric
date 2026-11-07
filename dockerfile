@@ -6,7 +6,6 @@ WORKDIR /app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
-COPY .env ./
 RUN npm install -g pnpm@9.6.0
 RUN pnpm install
 
